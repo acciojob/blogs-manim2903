@@ -24,7 +24,7 @@ public class BlogService {
     @Autowired
     UserRepository userRepository1;
 
-    public List<Blog> showBlogs(){
+    public static List<Blog> showBlogs(){
         //find all blogs
 
     }
