@@ -1,11 +1,11 @@
 package com.driver.models;
 
 import javax.persistence.*;
-import javax.xml.crypto.Data;
+import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table
+@Table(name = "blog")
 public class Blog{
 
     @Id
@@ -13,16 +13,32 @@ public class Blog{
     private int id;
     private String title;
     private String content;
-    private Data pubDate;
+    private Date pubDate;
     @ManyToOne
     @JoinColumn
     private User user;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<Image> getImageList() {
+        return imageList;
+    }
+
+    public void setImageList(List<Image> imageList) {
+        this.imageList = imageList;
+    }
+
+    @OneToMany(mappedBy ="blog", cascade = CascadeType.ALL)
     private List<Image> imageList;
 
     public Blog(){}
-    public Blog(int id, String title, String content, Data pubDate) {
+    public Blog(int id, String title, String content, Date pubDate) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -53,11 +69,11 @@ public class Blog{
         this.content = content;
     }
 
-    public Data getPubDate() {
+    public Date getPubDate() {
         return pubDate;
     }
 
-    public void setPubDate(Data pubDate) {
+    public void setPubDate(Date pubDate) {
         this.pubDate = pubDate;
     }
 }

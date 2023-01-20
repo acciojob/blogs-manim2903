@@ -3,7 +3,7 @@ package com.driver.models;
 import javax.persistence.*;
 
 @Entity
-@Table
+@Table(name = "image")
 public class Image{
 
     @Id
@@ -12,8 +12,16 @@ public class Image{
     private String description;
     private String dimension;
     @ManyToOne
-    @JoinColumn
+    @JoinColumn // if column is not mentioned pk of parent table is joined
     private Blog blog;
+
+    public Blog getBlog() {
+        return blog;
+    }
+
+    public void setBlog(Blog blog) {
+        this.blog = blog;
+    }
 
     public int getId() {
         return id;

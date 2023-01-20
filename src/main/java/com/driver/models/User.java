@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table
+@Table(name="user")
 
 public class User{
 
@@ -17,6 +17,14 @@ public class User{
     private String lastName;
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<Blog> blogList;
+
+    public List<Blog> getBlogList() {
+        return blogList;
+    }
+
+    public void setBlogList(List<Blog> blogList) {
+        this.blogList = blogList;
+    }
 
     public User() {}
 
