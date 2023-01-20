@@ -17,12 +17,13 @@ import java.util.List;
 public class BlogService {
     @Autowired
     BlogRepository blogRepository1;
-
     @Autowired
     ImageService imageService1;
 
     @Autowired
     UserRepository userRepository1;
+    @Autowired
+    private ImageRepository imageRepository;
 
     public List<Blog> showBlogs(){
         //find all blogs
@@ -58,14 +59,16 @@ public class BlogService {
 
     public void addImage(Integer blogId, String description, String dimensions){
         //add an image to the blog after creating it
-        Image image=new Image();
-        image.setDescription(description);
-        image.setDimension(dimensions);
-        image.setId(blogId);
+        Image image=imageService1.createAndReturn(blogRepository1.findById(blogId).get(),description,dimensions);
+        Blog blog=blogRepository1.findById(blogId).get();
+        image.setBlog(blog);
+        blog.getImageList().add(image);
+        blogRepository1.save(blog);
 
     }
 
     public void deleteBlog(int blogId){
         //delete blog and corresponding images
+        blogRepository1.deleteById(blogId);
     }
 }
